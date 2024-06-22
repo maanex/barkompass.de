@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barkompass</title>
+</head>
+<body>
+<div id="page">
+  <div id="frame">
+    <h1>Das Quiz</h1>
+
+    <span>Du weißt nicht, was du trinken willst?</span>
+    <span>Beantworte uns einfach 5 Fragen und wir sagen es dir!</span>
+    <button onclick="start()">Alles klar!</button>
+  </div>
+</div>
+<style>
+body {
+  background-color: rgb(90, 211, 248);
+  margin: 0;
+  padding: 0;
+}
+
+#page {
+  max-width: 500pt;
+  width: 100vw;
+  margin: auto;
+}
+
+button {
+  display: block;
+  margin-block: 1em;
+  background-color: #00000033;
+  padding: 10pt;
+  color: white;
+  text-decoration: none;
+  font-size: 140%;
+  border: none;
+  cursor: pointer;
+}
+</style>
+<script>
+
+const drinks = [
+  {
+    id: 'ipanema',
+    name: 'Ipanema',
+    type: 'alkfrei',
+    img: 'TODO'
+  },
+  {
+    id: 'alkfreispritz',
+    name: 'Aperitivo Spritz',
+    type: 'alkfrei',
+    img: 'TODO'
+  },
+  {
+    id: 'sunrise',
+    name: 'Tequila Sunrise',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'mule',
+    name: 'Munich Mule',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'touchdown',
+    name: 'Touchdown',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'tschunk',
+    name: 'Tschunk',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'spritz',
+    name: 'Aperol Spritz',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'lillet',
+    name: 'Lillet Wild Berry',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'waldfee',
+    name: 'Holler die Waldfee',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'legurk',
+    name: 'Le Gurk',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'gintonic',
+    name: 'Gin Tonic',
+    type: 'cocktail',
+    img: 'TODO'
+  },
+  {
+    id: 'jägermeister',
+    name: 'Jägermeister Shot',
+    type: 'shot',
+    img: 'TODO'
+  },
+  {
+    id: 'tequila',
+    name: 'Tequila Shot',
+    type: 'shot',
+    img: 'TODO'
+  },
+  {
+    id: 'klopfer',
+    name: 'Klopfer',
+    type: 'shot',
+    img: 'TODO'
+  },
+  {
+    id: 'pfeffi',
+    name: 'Pfeffi Shot',
+    type: 'shot',
+    img: 'TODO'
+  },
+  {
+    id: 'wodka',
+    name: 'Wodka Shot',
+    type: 'shot',
+    img: 'TODO'
+  },
+  {
+    id: 'rum',
+    name: 'Rum Shot',
+    type: 'shot',
+    img: 'TODO'
+  },
+  {
+    id: 'limoncello',
+    name: 'Limoncello Shot',
+    type: 'shot',
+    img: 'TODO'
+  }
+]
+
+const firstQuestion = {
+  text: 'Wie viel durst hast du?',
+  options: {
+    'Cocktail': {},
+    'Shot': {},
+    'Alkoholfrei': {}
+  }
+}
+
+const questions = [
+  {
+    text: 'Bist du müde? Oder Informatiker?', // sollte klar sein
+    for: [ 'cocktail', 'shot' ], // user entscheidet sich anfangs für eine kategorie -> bei welchen kann diese frage erscheinen
+    chance: 1, // wie wahrscheinlich diese frage dran kommt. 1 = average, 0.5 is halb so wahrscheinlich, 2 doppelt, etc
+    options: { // 2 - 4 antwortmöglichkeiten
+      'Ja': { // text für den button
+        'tschunk': 1, // drink mit der id "tschunk" bekommt 1 punkt
+        'limoncello': 1, // limoncello shot auch, weil die frage gilt ja auch für shots
+        default: 0 // alle anderen bekommen 0 punkte
+      },
+      'Nein': {
+        'tschunk': 0,
+        'limoncello': 0.3,
+        default: 0.8
+      }
+    }
+  },
+  {
+    text: 'Ist dir eher nach einer Erfrischung oder nach vollmundigem Charakter?',
+    for: [ 'cocktail' ],
+    chance: 0.9,
+    options: {
+      'Erfrischend, bitte': {
+        'ipanema': 0,
+        'alkfreispritz': 1,
+        'sunrise': 0,
+        'mule': 0,
+        'tschunk': 0.9,
+        'spritz': 1,
+        'lillet': 0.9,
+        'waldfee': 0.9,
+        'legurk': 1.1,
+        'gintonic': 1,
+      },
+      'Vollmundig': {
+        'ipanema': 1,
+        'alkfreispritz': 0,
+        'sunrise': 1,
+        'mule': 1,
+        'tschunk': 0,
+        'spritz': 0,
+        'lillet': 0,
+        'waldfee': 0,
+        'legurk': 0,
+        'gintonic': 0,
+      }
+    }
+  }
+]
+
+
+// ACHTUNG!!! JAVASCRIPT BELOW!!!!!
+
+const NUM_QUESTIONS = 5
+
+const frame = document.getElementById('frame')
+
+const scores = {}
+let remainingQuestions = []
+
+function start() {
+  // punkte auf 0
+  for (const drink of drinks)
+    scores[drink.id] = 0
+
+  // fragen auswählen
+  const pickedQuestions = []
+  const questionCatalogue = [...questions].sort(() => Math.random() < 0.5 ? 1 : -1)
+
+  for (let i = 0; i < NUM_QUESTIONS - 1; i++) {
+    const chanceSum = questionCatalogue.map(q => q.chance).reduce((a, b) => a + b, 0)
+    let counter = Math.random() * chanceSum
+
+    for (let j = 0; j < questionCatalogue.length; j++) {
+      const question = questionCatalogue[j]
+      if ((counter -= question.chance) > 0)
+        continue
+
+      pickedQuestions.push(questionCatalogue.splice(j, 1)[0])
+    }
+
+    if (questionCatalogue.length <= 0)
+      break
+  }
+
+  remainingQuestions = pickedQuestions.sort(() => Math.random() < 0.5 ? 1 : -1)
+
+  displayQuestion(firstQuestion)
+}
+
+function displayQuestion() {
+
+}
+</script>
+</body>
+</html>
