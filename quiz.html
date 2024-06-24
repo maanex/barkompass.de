@@ -6,12 +6,11 @@
   <title>Barkompass</title>
 </head>
 <body>
+<div class="background">
+  <img class="palme-links" src="/palme-links.webp" alt="">
+  <img class="palme-rechts" src="/palme-links.webp" alt="">
+</div>
 <div id="page">
-  <div class="background">
-    <img class="palme-links" src="/palme-links.webp" alt="">
-    <img class="palme-rechts" src="/palme-links.webp" alt="">
-  </div>
-
   <div id="introScreen">
     <h1>Das Quiz</h1>
 
@@ -63,10 +62,12 @@ body {
   width: 100dvw;
   margin: auto;
   height: 100dvh;
+  position: relative;
 }
 
 #page > * {
   height: 100dvh;
+  width: 100%;
   z-index: 10;
   position: absolute;
 }
@@ -122,6 +123,7 @@ h1 {
   font-weight: 400;
   text-shadow: 0 1px 6px #00000033;
   font-size: 300%;
+  text-wrap: pretty;
 }
 
 #questionText {
@@ -131,6 +133,7 @@ h1 {
   font-weight: 400;
   text-shadow: 0 1px 6px #00000033;
   font-size: 200%;
+  text-wrap: pretty;
 }
 
 #introScreen {
@@ -148,6 +151,7 @@ span {
   text-shadow: 0 2px 6px #00000066;
   text-align: center;
   display: block;
+  text-wrap: pretty;
 }
 
 #buttonList {
