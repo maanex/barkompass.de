@@ -7,12 +7,31 @@
 </head>
 <body>
 <div id="page">
-  <div id="frame">
+  <div id="introScreen">
     <h1>Das Quiz</h1>
 
     <span>Du weißt nicht, was du trinken willst?</span>
     <span>Beantworte uns einfach 5 Fragen und wir sagen es dir!</span>
     <button onclick="start()">Alles klar!</button>
+  </div>
+
+  <div id="questionScreen" class="hidden">
+    <div id="questionText"></div>
+    <div id="buttonList" class="buttons">
+      <button onclick="pickOption(0)"></button>
+      <button onclick="pickOption(1)"></button>
+      <button onclick="pickOption(2)"></button>
+      <button onclick="pickOption(3)"></button>
+    </div>
+  </div>
+
+  <div id="resultScreen" class="hidden">
+    Du möchtest:
+    <img id="resultImage">
+    <div id="resultText"></div>
+    <div id="resultDescription"></div>
+    <button onclick="displayResults(true)">Ne, will ich nicht.</button>
+    <button onclick="start()">Nochmal von vorne</button>
   </div>
 </div>
 <style>
@@ -39,6 +58,10 @@ button {
   border: none;
   cursor: pointer;
 }
+
+.hidden {
+  display: none;
+}
 </style>
 <script>
 
@@ -46,108 +69,126 @@ const drinks = [
   {
     id: 'ipanema',
     name: 'Ipanema',
+    description: 'TODO',
     type: 'alkfrei',
     img: 'TODO'
   },
   {
     id: 'alkfreispritz',
     name: 'Aperitivo Spritz',
+    description: 'TODO',
     type: 'alkfrei',
     img: 'TODO'
   },
   {
     id: 'sunrise',
     name: 'Tequila Sunrise',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'mule',
     name: 'Munich Mule',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'touchdown',
     name: 'Touchdown',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'tschunk',
     name: 'Tschunk',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'spritz',
     name: 'Aperol Spritz',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'lillet',
     name: 'Lillet Wild Berry',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'waldfee',
     name: 'Holler die Waldfee',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'legurk',
     name: 'Le Gurk',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'gintonic',
     name: 'Gin Tonic',
+    description: 'TODO',
     type: 'cocktail',
     img: 'TODO'
   },
   {
     id: 'jägermeister',
     name: 'Jägermeister Shot',
+    description: 'TODO',
     type: 'shot',
     img: 'TODO'
   },
   {
     id: 'tequila',
     name: 'Tequila Shot',
+    description: 'TODO',
     type: 'shot',
     img: 'TODO'
   },
   {
     id: 'klopfer',
     name: 'Klopfer',
+    description: 'TODO',
     type: 'shot',
     img: 'TODO'
   },
   {
     id: 'pfeffi',
     name: 'Pfeffi Shot',
+    description: 'TODO',
     type: 'shot',
     img: 'TODO'
   },
   {
     id: 'wodka',
     name: 'Wodka Shot',
+    description: 'TODO',
     type: 'shot',
     img: 'TODO'
   },
   {
     id: 'rum',
     name: 'Rum Shot',
+    description: 'TODO',
     type: 'shot',
     img: 'TODO'
   },
   {
     id: 'limoncello',
     name: 'Limoncello Shot',
+    description: 'TODO',
     type: 'shot',
     img: 'TODO'
   }
@@ -165,7 +206,7 @@ const firstQuestion = {
 const questions = [
   {
     text: 'Bist du müde? Oder Informatiker?', // sollte klar sein
-    for: [ 'cocktail', 'shot' ], // user entscheidet sich anfangs für eine kategorie -> bei welchen kann diese frage erscheinen
+    for: [ 'cocktail', 'shot', 'alkfrei' ], // user entscheidet sich anfangs für eine kategorie -> bei welchen kann diese frage erscheinen
     chance: 1, // wie wahrscheinlich diese frage dran kommt. 1 = average, 0.5 is halb so wahrscheinlich, 2 doppelt, etc
     options: { // 2 - 4 antwortmöglichkeiten
       'Ja': { // text für den button
@@ -218,19 +259,32 @@ const questions = [
 
 const NUM_QUESTIONS = 5
 
-const frame = document.getElementById('frame')
+//
 
 const scores = {}
 let remainingQuestions = []
+let pickedType = ''
+let numOfResultsSkipped = 0
 
 function start() {
+  remainingQuestions = null
+  numOfResultsSkipped = 0
+  displayQuestion(firstQuestion)
+}
+
+function beginQuiz() {
   // punkte auf 0
-  for (const drink of drinks)
-    scores[drink.id] = 0
+  for (const drink of drinks) {
+    scores[drink.id] = (drink.type === pickedType)
+      ? (Math.random() / 10) // kleiner random offset zum start
+      : 0
+  }
 
   // fragen auswählen
   const pickedQuestions = []
-  const questionCatalogue = [...questions].sort(() => Math.random() < 0.5 ? 1 : -1)
+  const questionCatalogue = [...questions]
+    .filter(q => q.for.includes(pickedType))
+    .sort(() => Math.random() < 0.5 ? 1 : -1)
 
   for (let i = 0; i < NUM_QUESTIONS - 1; i++) {
     const chanceSum = questionCatalogue.map(q => q.chance).reduce((a, b) => a + b, 0)
@@ -248,13 +302,98 @@ function start() {
       break
   }
 
-  remainingQuestions = pickedQuestions.sort(() => Math.random() < 0.5 ? 1 : -1)
+  // fragen shuffeln (damit die wahrscheinlichste frage nicht immer als erstes kommt)
+  remainingQuestions = [ ...pickedQuestions.sort(() => Math.random() < 0.5 ? 1 : -1) ]
 
-  displayQuestion(firstQuestion)
+  // lets go
+  displayQuestion()
 }
 
-function displayQuestion() {
+//
 
+function showIntroScreen() {
+  introScreen.classList.remove('hidden')
+  questionScreen.classList.add('hidden')
+  resultScreen.classList.add('hidden')
+}
+
+function showQuestionScreen(text, buttons) {
+  introScreen.classList.add('hidden')
+  questionScreen.classList.remove('hidden')
+  resultScreen.classList.add('hidden')
+
+  questionText.textContent = text
+  buttonList.getElementsByTagName('button')[0].textContent = buttons[0]
+  buttonList.getElementsByTagName('button')[0].classList.toggle('hidden', !buttons[0])
+  buttonList.getElementsByTagName('button')[1].textContent = buttons[1]
+  buttonList.getElementsByTagName('button')[1].classList.toggle('hidden', !buttons[1])
+  buttonList.getElementsByTagName('button')[2].textContent = buttons[2]
+  buttonList.getElementsByTagName('button')[2].classList.toggle('hidden', !buttons[2])
+  buttonList.getElementsByTagName('button')[3].textContent = buttons[3]
+  buttonList.getElementsByTagName('button')[3].classList.toggle('hidden', !buttons[3])
+}
+
+function showResultScreen(image, text) {
+  introScreen.classList.add('hidden')
+  questionScreen.classList.add('hidden')
+  resultScreen.classList.remove('hidden')
+
+  resultText.textContent = text
+}
+
+//
+
+function applyAnswer(answer) {
+  for (const drink of drinks) {
+    if (drink.type !== pickedType)
+      continue
+
+    const id = drink.id
+    const change = answer[id] ?? answer.default ?? 0
+    scores[id] += change
+  }
+}
+
+function displayQuestion(question = remainingQuestions[0]) {
+  showQuestionScreen(question.text, Object.keys(question.options))
+}
+
+function displayResults(cycleToNext = false) {
+  if (cycleToNext)
+    numOfResultsSkipped++
+
+  const items = Object
+    .entries(scores)
+    .filter(a => a[1] > 0)
+    .sort((a, b) => b[1] - a[1])
+  const result = items[numOfResultsSkipped]?.[0]
+
+  if (!result) {
+    showResultScreen('', 'Nix da, du hast alles geskippt.') // TODO hier noch irgendeinen joke einbauen
+    return
+  }
+
+  const drink = drinks.find(d => d.id === result)
+  showResultScreen(drink.img, drink.name)
+}
+
+function pickOption(num) {
+  if (!remainingQuestions) {
+    remainingQuestions = []
+    pickedType = ([ 'cocktail', 'shot', 'alkfrei' ])[num]
+    beginQuiz()
+    return
+  }
+
+  const question = remainingQuestions[0]
+  const optKey = Object.keys(question.options)[num]
+  applyAnswer(question.options[optKey])
+
+  remainingQuestions.shift()
+  if (remainingQuestions.length > 0)
+    displayQuestion()
+  else
+    displayResults()
 }
 </script>
 </body>
