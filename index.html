@@ -12,12 +12,13 @@
 
   <span>Du weißt nicht, was du trinken willst?</span>
   <a href="/quiz.html">
-    Mach das quiz!
+    Mach das Quiz!
   </a>
   <span>Oder</span>
   <a href="/rad.html">
-    Dreh am rad!
+    Dreh am Rad!
   </a>
+  <span id="splash">Viel Spaß!</span>
 </div>
 <style>
 body {
@@ -42,5 +43,30 @@ a {
   font-size: 140%;
 }
 </style>
+<script>
+
+// ACHTUNG!!! JAVASCRIPT BELOW!!!!!
+
+  const splashes = [
+    "also try mensatt.de!",
+    "Fuck campo",
+    "Ja zur Stub!",
+    "makes choosing a drink trivial!",
+    "made with love",
+    "powered by Jannik",
+    "Zuenden und rennen",
+    "Als Teilnehmer sind Sie zur Online-Bewertung folgender Lehrveranstaltung berechtigt: TF:SF",
+    "Änderung an Prüfungsbewertung/Changes to examination grades",
+    "good weather only!",
+    "This page is known to the State of Bavaria to cause good vibes.",
+    "0x54736368756e6b",
+    "This website is endorsed by the techfak cat.",
+    "Bing chilling!",
+    "Hornegger's choice for choosing drinks! (probably)",
+  ];
+  const splash = splashes[Math.floor(Math.random() * splashes.length)];
+  document.getElementById("splash").innerText = splash;
+
+</script>
 </body>
 </html>
