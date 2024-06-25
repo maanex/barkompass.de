@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barkompass</title>
+</head>
+<body>
+<div id="page">
+  <span>Techfak Sommerfest</span>
+  <h1>Barkompass</h1>
+
+  <span>Du weißt nicht, was du trinken willst?</span>
+  <a href="/quiz.html">
+    Mach das Quiz!
+  </a>
+  <span>Oder</span>
+  <a href="/rad.html">
+    Dreh am Rad!
+  </a>
+  <span id="splash">Viel Spaß!</span>
+</div>
+<style>
+body {
+  background-color: rgb(90, 211, 248);
+  margin: 0;
+  padding: 0;
+}
+
+#page {
+  max-width: 500pt;
+  width: 100vw;
+  margin: auto;
+}
+
+a {
+  display: block;
+  margin-block: 1em;
+  background-color: #00000033;
+  padding: 10pt;
+  color: white;
+  text-decoration: none;
+  font-size: 140%;
+}
+</style>
+<script>
+
+// ACHTUNG!!! JAVASCRIPT BELOW!!!!!
+
+  const splashes = [
+    "also try mensatt.de!",
+    "Fuck campo",
+    "Ja zur Stub!",
+    "makes choosing a drink trivial!",
+    "made with love",
+    "powered by Jannik",
+    "Zuenden und rennen",
+    "Als Teilnehmer sind Sie zur Online-Bewertung folgender Lehrveranstaltung berechtigt: TF:SF",
+    "Änderung an Prüfungsbewertung/Changes to examination grades",
+    "good weather only!",
+    "This page is known to the State of Bavaria to cause good vibes.",
+    "0x54736368756e6b",
+    "This website is endorsed by the techfak cat.",
+    "Bing chilling!",
+    "Hornegger's choice for choosing drinks! (probably)",
+  ];
+  const splash = splashes[Math.floor(Math.random() * splashes.length)];
+  document.getElementById("splash").innerText = splash;
+
+</script>
+</body>
+</html>
