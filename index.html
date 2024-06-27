@@ -38,7 +38,9 @@
       <img class="bilderrahmen" src="/bilderrahmen.png" alt="">
       <img id="resultImage">
     </div>
-    <div id="resultText"></div>
+    <div class="banner">
+      <div id="resultText"></div>
+    </div>
     <div id="resultDescription"></div>
     <div class="buttons">
       <button onclick="displayResults(true)">Ne, will ich nicht.</button>
@@ -247,27 +249,30 @@ span {
   padding: 7pt;
 }
 
-#resultText {
+.banner {
   background-image: url('/banner.png');
-  display: block;
+  display: grid;
+  place-items: center;
   padding: 9vh 0 7vh 0;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  z-index: 20;
+  max-width: 500pt;
+  width: 90vw;
+}
+
+#resultText {
   text-align: center;
   margin: 0 auto;
   color: white;
   font-family: "display";
   font-weight: 400;
   text-shadow: 0 1px 6px #00000033;
-  font-size: 220%;
+  font-size: 180%;
   text-wrap: pretty;
-  max-width: 500pt;
-  width: 90vw;
   position: relative;
-  z-index: 20;
-  line-height: 1em;
-  height: 1.4em;
+  width: 70%;
 }
 
 #resultDescription {
@@ -491,7 +496,7 @@ function start() {
   numOfResultsSkipped = 0
   displayQuestion(firstQuestion)
 }
-// start(); scores.tschunk = 1; displayResults() // TODO REMOVE THIS LINE
+start(); scores.tschunk = 1; displayResults() // TODO REMOVE THIS LINE
 
 function beginQuiz() {
   // punkte auf 0
@@ -592,7 +597,7 @@ function displayResults(cycleToNext = false) {
   const result = items[numOfResultsSkipped]?.[0]
 
   if (!result) {
-    showResultScreen('', 'Nix da, du hast alles geskippt.') // TODO hier noch irgendeinen joke einbauen
+    showResultScreen('/desert.png', 'Du verdurstest', 'Wenn du nach Bier oder Softdrinks suchst, schau doch mal bei unserem Getränkestand vorbei!')
     return
   }
 

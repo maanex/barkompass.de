@@ -1,1 +1,16 @@
+../desert.png https://geographical.co.uk/wp-content/uploads/shutterstock_1200643537-scaled.jpg
+
 tschunk.png https://www.kochwiki.org/images/thumb/e/ef/Tschunk.jpg/300px-Tschunk.jpg
+ipanema.png https://www.chefkoch.de/rezepte/1352881240037873/Ipanema.html
+alkfreispritz.png https://www.epicurious.com/recipes/food/views/best-aperol-spritz
+sunrise.png https://trinkreif.de/en/cocktail/tequila-sunrise/
+mule.png https://mixology.eu/wp-content/uploads/2012/09/munich-mule-web-ca-1.jpg
+touchdown.png https://www.millennium-bartending.de/cocktailarten/vodka-cocktails/touchdown/
+spritz.png https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2021/05/aperol-spritz-cocktail.jpg
+lillet.png https://cocktailbart.de/cocktails/lillet-wild-berry/
+waldfee.png https://cocktails.de/magazin/cocktails-fuer-einen-endlosen-sommer-indian-summer-drinks
+legurk.png https://spirituosenworld.de/cocktails/le-gurk
+gintonic.png https://www.thespruceeats.com/gin-and-tonic-recipe-759300
+jägermeister.png https://de.jagermeister.com/shop/jaegermeister/jaegermeister/
+tequila.png https://tendercrate.com/en/recipes/tequila-shot/
+
