@@ -293,31 +293,31 @@ const drinks = [
   {
     id: 'ipanema',
     name: 'Ipanema',
-    description: 'TODO',
+    description: 'Saft, Limette, Mate: erfrischend, exotisch, süß',
     type: 'alkfrei'
   },
   {
     id: 'alkfreispritz',
     name: 'Aperitivo Spritz',
-    description: 'TODO',
+    description: 'Sommerklassiker: herb erfrischende Orange',
     type: 'alkfrei'
   },
   {
     id: 'sunrise',
     name: 'Tequila Sunrise',
-    description: 'TODO',
+    description: 'Sonnenaufgang für den Gaumen: fruchtig süß',
     type: 'cocktail'
   },
   {
     id: 'mule',
     name: 'Munich Mule',
-    description: 'TODO',
+    description: 'München in einem Glas: frisch, würzig, herb',
     type: 'cocktail'
   },
   {
     id: 'touchdown',
     name: 'Touchdown',
-    description: 'TODO',
+    description: 'Der Kick für den Abend: fruchtig, süß, vodka',
     type: 'cocktail'
   },
   {
@@ -329,73 +329,73 @@ const drinks = [
   {
     id: 'spritz',
     name: 'Aperol Spritz',
-    description: 'TODO',
+    description: 'Der Klassiker: fruchtig herbe Orange',
     type: 'cocktail'
   },
   {
     id: 'lillet',
     name: 'Lillet Wild Berry',
-    description: 'TODO',
+    description: 'Sommergarten im Glas: beerig aromtische Erfrischung',
     type: 'cocktail'
   },
   {
     id: 'waldfee',
     name: 'Holler die Waldfee',
-    description: 'TODO',
+    description: 'rosa Feentrunk: Kräuter-Gin, Cranberry, Holundernote',
     type: 'cocktail'
   },
   {
     id: 'legurk',
     name: 'Le Gurk',
-    description: 'TODO',
+    description: 'Gin, Gurke, Holunder: frisch, grün, Gurke!',
     type: 'cocktail'
   },
   {
     id: 'gintonic',
     name: 'Gin Tonic',
-    description: 'TODO',
+    description: 'Klassiker: frisch, herb, spritzig',
     type: 'cocktail'
   },
   {
     id: 'jägermeister',
     name: 'Jägermeister Shot',
-    description: 'TODO',
+    description: 'Kräuterdestillat: würzig, herb',
     type: 'shot'
   },
   {
     id: 'tequila',
     name: 'Tequila Shot',
-    description: 'TODO',
+    description: 'ein Schluck Lateinamerika: brennt wie die Sonne',
     type: 'shot'
   },
   {
     id: 'klopfer',
     name: 'Klopfer',
-    description: 'TODO',
+    description: 'Geschmackslotto: am besten mit Freunden',
     type: 'shot'
   },
   {
     id: 'pfeffi',
     name: 'Pfeffi Shot',
-    description: 'TODO',
+    description: 'erfrischende Mundspülung: danach schmeckt alles besser',
     type: 'shot'
   },
   {
     id: 'wodka',
     name: 'Wodka Shot',
-    description: 'TODO',
+    description: 'Absolut zu empfehlen: klare Sache',
     type: 'shot'
   },
   {
     id: 'rum',
     name: 'Rum Shot',
-    description: 'TODO',
+    description: 'ein Schluck Kommunismus direkt aus Cuba',
     type: 'shot'
   },
   {
     id: 'limoncello',
     name: 'Limoncello Shot',
-    description: 'TODO',
+    description: 'Süditalien destilliert in einen Shot: Zitrone, Zitrone, Zitrone',
     type: 'shot'
   }
 ]
@@ -412,25 +412,23 @@ const firstQuestion = {
 const questions = [
   {
     text: 'Bist du müde? Oder Informatiker?', // sollte klar sein
-    for: [ 'cocktail', 'shot', 'alkfrei' ], // user entscheidet sich anfangs für eine kategorie -> bei welchen kann diese frage erscheinen
+    for: [ 'cocktail', 'alkfrei' ], // user entscheidet sich anfangs für eine kategorie -> bei welchen kann diese frage erscheinen
     chance: 1, // wie wahrscheinlich diese frage dran kommt. 1 = average, 0.5 is halb so wahrscheinlich, 2 doppelt, etc
     options: { // 2 - 4 antwortmöglichkeiten
       'Ja': { // text für den button
         'tschunk': 1, // drink mit der id "tschunk" bekommt 1 punkt
-        'limoncello': 1, // limoncello shot auch, weil die frage gilt ja auch für shots
         default: 0 // alle anderen bekommen 0 punkte
       },
       'Nein': {
         'tschunk': 0,
-        'limoncello': 0.3,
         default: 0.8
       }
     }
   },
   {
-    text: 'Ist dir eher nach einer Erfrischung oder nach vollmundigem Charakter?',
+    text: 'Erfrischung oder vollmundiger Charakter?',
     for: [ 'cocktail' ],
-    chance: 0.9,
+    chance: 1,
     options: {
       'Erfrischend, bitte': {
         'ipanema': 0,
@@ -439,7 +437,7 @@ const questions = [
         'mule': 0,
         'tschunk': 0.9,
         'spritz': 1,
-        'lillet': 0.9,
+        'lillet': 1.2,
         'waldfee': 0.9,
         'legurk': 1.1,
         'gintonic': 1,
@@ -455,6 +453,166 @@ const questions = [
         'waldfee': 0,
         'legurk': 0,
         'gintonic': 0,
+      }
+    }
+  },
+  {
+    text: 'Heute schon Zähne geputzt?',
+    for: [ 'shot' ],
+    chance: 1,
+    options: {
+      'Ja': {
+        'jägermeister': 0.5,
+        'tequila': 0.5,
+        'klopfer': 0.5,
+        'pfeffi': 0.5,
+        'wodka': 0.5,
+        'rum': 0.5,
+        'limoncello': 0.5,
+      },
+      'Nein': {
+        'pfeffi': 1.5,
+        'limoncello': 0.75,
+      }
+    }
+  },
+  {
+    text: 'Stichst du gerne auf See?',
+    for: [ 'shot', 'cocktail' ],
+    chance: 0.5,
+    options: {
+      'Arrr, Aargh!': {
+        'rum': 1,
+        'tschunk': 1,
+      },
+      'ich hab lieber Boden unter den Füßen': {
+      }
+    }
+  },
+  {
+    text: 'Strand oder Berge?',
+    for: ['cocktail', 'shot'],
+    chance: 0.75,
+    options: {
+      'Strand': {
+        'rum': 1,
+        'tequila': 1,
+        'limoncello': 1,
+
+        'ipanema': 1,
+        'alkfreispritz': 1,
+        'spritz': 1,
+        'sunrise': 1,
+        'touchdown': 1,
+        'tschunk': 1,
+        'lillet': 1,
+        'waldfee': 1,
+      },
+      'Berge': {
+        'vodka': 1,
+        'pfeffi': 1,
+        'jägermeister': 1,
+        'legurk': 1,
+        'gintonic': 1,
+        'mule': 1,
+        'tschunk': 1,
+        'waldfee': 1,
+      },
+    }
+  },
+  {
+    text: 'was ist dein nächstes Reiseziel?',
+    for: [ 'shot', 'cocktail' ],
+    chance: 0.75,
+    options: {
+      'Cuba': {
+        'rum': 1,
+        'tschunk': 1,
+      },
+      'München': {
+        'mule': 1,
+      },
+      'Florenz': {
+        'alkfreispritz': 1,
+        'spritz': 1,
+        'limoncello': 1,
+      },
+      'Catania': {
+        'lillet': 1,
+      },
+      'Kräutergarten': {
+        'waldfee': 1,
+        'legurk': 1,
+        'gintonic': 0.75,
+        'jägermeister': 1,
+      },
+      'Mexico': {
+        'tequila': 1,
+      }
+    }
+  },
+  {
+    text: 'was ist deine Lieblingsfarbe?',
+    for: [ 'shot', 'cocktail' ],
+    chance: 0.5,
+    options: {
+      'Orange': {
+        'alkfreispritz': 1,
+        'spritz': 1,
+        'sunrise': 1,
+        'touchdown': 1,
+      },
+      'Rosa': {
+        'lillet': 1,
+        'waldfee': 1,
+        'touchdown': 0.5,
+      },
+      'Braun': {
+        'tschunk': 1,
+        'ipanema': 1,
+        'jägermeister': 1,
+      },
+      'Keine Farbe': {
+        'vodka': 1,
+        'tequila': 1,
+        'rum': 1,
+        'vodka': 1,
+        'vodka': 1,
+      },
+      'Gelb': {
+        'ipanema': 1,
+        'limoncello': 1,
+        'touchdown': 0.3,
+      },
+      'Grün': {
+        'mule': 1,
+        'gintonic': 1,
+        'legurk': 1,
+        'pfeffi': 1,
+      }
+    }
+  },
+  {
+    text: 'was ist dir lieber?',
+    for: [ 'cocktail' ],
+    chance: 0.5,
+    options: {
+      'Gemüse': {
+        'legurk': 1,
+        'mule': 1,
+        'gintonic': 1,
+      },
+      'Früchte': {
+        'spritz': 1,
+        'alkfreispritz': 1,
+        'lillet': 1,
+        'spritz': 1,
+        'tschunk': 0.5,
+        'ipanema': 0.5
+      },
+      'lieber nichts': {
+        'tochdown': 1,
+        'sunrise': 1,
       }
     }
   }
