@@ -33,12 +33,17 @@
   </div>
 
   <div id="resultScreen" class="hidden">
-    Du möchtest:
-    <img id="resultImage">
+    <h2>Du möchtest:</h2>
+    <div class="images">
+      <img class="bilderrahmen" src="/bilderrahmen.png" alt="">
+      <img id="resultImage">
+    </div>
     <div id="resultText"></div>
     <div id="resultDescription"></div>
-    <button onclick="displayResults(true)">Ne, will ich nicht.</button>
-    <button onclick="start()">Nochmal von vorne</button>
+    <div class="buttons">
+      <button onclick="displayResults(true)">Ne, will ich nicht.</button>
+      <button onclick="start()">Nochmal von vorne</button>
+    </div>
   </div>
 </div>
 <style type="text/css">
@@ -127,6 +132,17 @@ h1 {
   text-wrap: pretty;
 }
 
+h2 {
+  color: white;
+  font-family: "display";
+  text-align: center;
+  font-weight: 400;
+  text-shadow: 0 1px 6px #00000033;
+  font-size: 180%;
+  margin: 0;
+  text-wrap: pretty;
+}
+
 #minecraft {
   position: absolute;
   top: 47%;
@@ -193,8 +209,77 @@ span {
 
 #resultScreen {
   display: grid;
-  padding: 20dvh 5dvw 5dvw 5dvw;
+  padding: 5dvh 5dvw 5dvw 5dvw;
   box-sizing: border-box;
+}
+
+.images {
+  display: grid;
+  position: relative;
+  place-items: center;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto -18vh auto;
+}
+
+.bilderrahmen {
+  position: relative;
+  z-index: 10;
+  max-width: 90vw;
+}
+
+#resultImage {
+  position: absolute;
+  width: 53%;
+  height: 67%;
+  z-index: 0;
+  object-fit: cover;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10pt;
+}
+
+.buttons button {
+  font-size: 100%;
+  padding: 7pt;
+}
+
+#resultText {
+  background-image: url('/banner.png');
+  display: block;
+  padding: 9vh 0 7vh 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+  font-family: "display";
+  font-weight: 400;
+  text-shadow: 0 1px 6px #00000033;
+  font-size: 220%;
+  text-wrap: pretty;
+  max-width: 500pt;
+  width: 90vw;
+  position: relative;
+  z-index: 20;
+  line-height: 1em;
+  height: 1.4em;
+}
+
+#resultDescription {
+  color: white;
+  font-family: sans-serif;
+  font-size: 110%;
+  font-weight: 700;
+  text-shadow: 0 2px 6px #00000066;
+  text-align: center;
+  display: block;
+  text-wrap: pretty;
+  padding: 1vh 0 5vh 0;
 }
 </style>
 <script>
@@ -204,127 +289,109 @@ const drinks = [
     id: 'ipanema',
     name: 'Ipanema',
     description: 'TODO',
-    type: 'alkfrei',
-    img: 'TODO'
+    type: 'alkfrei'
   },
   {
     id: 'alkfreispritz',
     name: 'Aperitivo Spritz',
     description: 'TODO',
-    type: 'alkfrei',
-    img: 'TODO'
+    type: 'alkfrei'
   },
   {
     id: 'sunrise',
     name: 'Tequila Sunrise',
     description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    type: 'cocktail'
   },
   {
     id: 'mule',
     name: 'Munich Mule',
     description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    type: 'cocktail'
   },
   {
     id: 'touchdown',
     name: 'Touchdown',
     description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    type: 'cocktail'
   },
   {
     id: 'tschunk',
     name: 'Tschunk',
-    description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    description: 'Der Trank der Götter! Voll mit Koffein und Rum, hältst du die ganze Nacht durch!',
+    type: 'cocktail'
   },
   {
     id: 'spritz',
     name: 'Aperol Spritz',
     description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    type: 'cocktail'
   },
   {
     id: 'lillet',
     name: 'Lillet Wild Berry',
     description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    type: 'cocktail'
   },
   {
     id: 'waldfee',
     name: 'Holler die Waldfee',
     description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    type: 'cocktail'
   },
   {
     id: 'legurk',
     name: 'Le Gurk',
     description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    type: 'cocktail'
   },
   {
     id: 'gintonic',
     name: 'Gin Tonic',
     description: 'TODO',
-    type: 'cocktail',
-    img: 'TODO'
+    type: 'cocktail'
   },
   {
     id: 'jägermeister',
     name: 'Jägermeister Shot',
     description: 'TODO',
-    type: 'shot',
-    img: 'TODO'
+    type: 'shot'
   },
   {
     id: 'tequila',
     name: 'Tequila Shot',
     description: 'TODO',
-    type: 'shot',
-    img: 'TODO'
+    type: 'shot'
   },
   {
     id: 'klopfer',
     name: 'Klopfer',
     description: 'TODO',
-    type: 'shot',
-    img: 'TODO'
+    type: 'shot'
   },
   {
     id: 'pfeffi',
     name: 'Pfeffi Shot',
     description: 'TODO',
-    type: 'shot',
-    img: 'TODO'
+    type: 'shot'
   },
   {
     id: 'wodka',
     name: 'Wodka Shot',
     description: 'TODO',
-    type: 'shot',
-    img: 'TODO'
+    type: 'shot'
   },
   {
     id: 'rum',
     name: 'Rum Shot',
     description: 'TODO',
-    type: 'shot',
-    img: 'TODO'
+    type: 'shot'
   },
   {
     id: 'limoncello',
     name: 'Limoncello Shot',
     description: 'TODO',
-    type: 'shot',
-    img: 'TODO'
+    type: 'shot'
   }
 ]
 
@@ -424,6 +491,7 @@ function start() {
   numOfResultsSkipped = 0
   displayQuestion(firstQuestion)
 }
+// start(); scores.tschunk = 1; displayResults() // TODO REMOVE THIS LINE
 
 function beginQuiz() {
   // punkte auf 0
@@ -486,12 +554,14 @@ function showQuestionScreen(text, buttons) {
   buttonList.getElementsByTagName('button')[3].classList.toggle('hidden', !buttons[3])
 }
 
-function showResultScreen(image, text) {
+function showResultScreen(image, text, description) {
   introScreen.classList.add('hidden')
   questionScreen.classList.add('hidden')
   resultScreen.classList.remove('hidden')
 
+  resultImage.src = image
   resultText.textContent = text
+  resultDescription.textContent = description
 }
 
 //
@@ -527,7 +597,7 @@ function displayResults(cycleToNext = false) {
   }
 
   const drink = drinks.find(d => d.id === result)
-  showResultScreen(drink.img, drink.name)
+  showResultScreen(`/drinks/${drink.id}.png`, drink.name, drink.description)
 }
 
 function pickOption(num) {
