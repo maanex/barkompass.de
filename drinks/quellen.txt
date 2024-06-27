@@ -13,4 +13,9 @@ legurk.png https://spirituosenworld.de/cocktails/le-gurk
 gintonic.png https://www.thespruceeats.com/gin-and-tonic-recipe-759300
 jägermeister.png https://de.jagermeister.com/shop/jaegermeister/jaegermeister/
 tequila.png https://tendercrate.com/en/recipes/tequila-shot/
+klopfer.png https://shop.trinkwerk.cc/catalog2/products/119114/klopfer-lady-mix-partyspirituose-25-x-002-l
+wodka.png https://www.gefako.de/getraenke-magazin/getraenkewissen/spirituosen/wodka.96.de.html
+rum.png https://www.liquor.com/articles/spice-your-rum/
+limoncello.png https://www.kitchenstories.com/en/recipes/limoncello-en
+pfeffi.png https://www.pfeffi.com/diys/anstoss-ins-neue-jahr/
 
