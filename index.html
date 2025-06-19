@@ -35,7 +35,7 @@
   <div id="resultScreen" class="hidden">
     <h2>Du möchtest:</h2>
     <div class="images">
-      <img class="bilderrahmen" src="/bilderrahmen.png" alt="">
+      <img class="bilderrahmen" src="/bilderrahmen.webp" alt="">
       <img id="resultImage">
     </div>
     <div class="banner">
@@ -250,7 +250,7 @@ span {
 }
 
 .banner {
-  background-image: url('/banner.png');
+  background-image: url('/banner.webp');
   display: grid;
   place-items: center;
   padding: 9vh 0 7vh 0;
@@ -764,12 +764,12 @@ function displayResults(cycleToNext = false) {
   const result = items[numOfResultsSkipped]?.[0]
 
   if (!result) {
-    showResultScreen('/desert.png', 'Du verdurstest', 'Wenn du nach Bier oder Softdrinks suchst, schau doch mal bei unserem Getränkestand vorbei!')
+    showResultScreen('/desert.webp', 'Du verdurstest', 'Wenn du nach Bier oder Softdrinks suchst, schau doch mal bei unserem Getränkestand vorbei!')
     return
   }
 
   const drink = drinks.find(d => d.id === result)
-  showResultScreen(`/drinks/${drink.id}.png`, drink.name, drink.description)
+  showResultScreen(`/drinks/${drink.id}.webp`, drink.name, drink.description)
 }
 
 function pickOption(num) {
