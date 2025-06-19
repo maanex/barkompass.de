@@ -790,6 +790,23 @@ function pickOption(num) {
   else
     displayResults()
 }
+
+// Preload images
+requestIdleCallback(() => {
+  const urls = drinks.map(drink => `/drinks/${drink.id}.png`)
+  for (const url of urls) {
+    const img = new Image()
+    img.src = url
+    img.style.position = 'absolute'
+    img.style.top = '0'
+    img.style.left = '0'
+    img.style.opacity = '0'
+    img.style.width = '1px'
+    img.style.height = '1px'
+    img.style.pointerEvents = 'none'
+    document.body.appendChild(img)
+  }
+})
 </script>
 </body>
 </html>
