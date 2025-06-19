@@ -631,13 +631,12 @@ const questions = [
         'ipanema': 0.5
       },
       'lieber nichts': {
-        'tochdown': 1,
+        'touchdown': 1,
         'sunrise': 1,
       }
     }
   }
 ]
-
 
 
 const splashes = [
@@ -813,6 +812,21 @@ function pickOption(num) {
   else
     displayResults()
 }
+
+// calculateBias and output for debugging
+const drinkScores = {}
+for (const q of questions) {
+  const optionCount = Object.keys(q.options).length
+  const weight = q.chance / optionCount
+
+  for (const scores of Object.values(q.options)) {
+    for (const [drink, value] of Object.entries(scores)) {
+      const score = weight * value
+      drinkScores[drink] = (drinkScores[drink] || 0) + score
+    }
+  }
+}
+console.log('Bias:', drinkScores)
 
 // Preload images
 requestIdleCallback(() => {
