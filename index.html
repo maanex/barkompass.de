@@ -793,7 +793,7 @@ function pickOption(num) {
 
 // Preload images
 requestIdleCallback(() => {
-  const urls = drinks.map(drink => `/drinks/${drink.id}.png`)
+  const urls = drinks.map(drink => `/drinks/${drink.id}.webp`)
   for (const url of urls) {
     const img = new Image()
     img.src = url
