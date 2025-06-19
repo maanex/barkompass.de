@@ -13,7 +13,7 @@
 <div id="page">
   <div id="introScreen">
     <h1>Das Techfak Sommerfest Bar-Quiz!</h1>
-    <span id="minecraft"></span>
+    <span id="minecraft" tabindex="0"></span>
 
     <div>
       <span>Du weißt nicht, was du trinken willst?</span>
@@ -42,6 +42,7 @@
       <div id="resultText"></div>
     </div>
     <div id="resultDescription"></div>
+    <div class="barAd">Komm jetzt an die Bar! Rechts neben der Bühne!</div>
     <div class="buttons2">
       <button onclick="displayResults(true)">Ne, will ich nicht.</button>
       <button onclick="start()">Nochmal von vorne</button>
@@ -156,11 +157,18 @@ h2 {
   text-align: center;
   width: 70%;
   max-width: 380pt;
+  text-wrap: pretty;
+  transition: transform .05s ease;
   text-shadow:
     0 0px 4px #00000088,
     0 1px 12px #00000055,
     0 2px 20px #00000033,
     0 4px 40px #00000088;
+}
+
+#minecraft:focus, #minecraft:hover {
+  transform: scale(0.9);
+  scale: 1 !important;
 }
 
 @keyframes bounce {
@@ -276,6 +284,18 @@ span {
 }
 
 #resultDescription {
+  color: white;
+  font-family: sans-serif;
+  font-size: 110%;
+  font-weight: 700;
+  text-shadow: 0 2px 6px #00000066;
+  text-align: center;
+  display: block;
+  text-wrap: pretty;
+  padding: 1vh 0 5vh 0;
+}
+
+.barAd {
   color: white;
   font-family: sans-serif;
   font-size: 110%;
@@ -623,7 +643,6 @@ const questions = [
 const splashes = [
   "also try mensatt.de!",
   "Fuck campo",
-  "Ja zur Stub!",
   "makes choosing a drink trivial!",
   "made with love",
   "powered by Jannik",
@@ -631,7 +650,6 @@ const splashes = [
   "Als Teilnehmer sind Sie zur Online-Bewertung folgender Lehrveranstaltung berechtigt: TF:SF",
   "good weather only!",
   "This page is known to the State of Bavaria to cause good vibes.",
-  "0x54736368756e6b",
   "This website is endorsed by the techfak cat.",
   "Bing chilling!",
   "Hornegger's choice for choosing drinks! (probably)",
@@ -644,10 +662,15 @@ const splashes = [
   "SELECT * FROM cocktails WHERE taste = 'amazing';",
   "git commit -m 'added more alcohol'",
   "Certified Spezi-free zone!",
+  "Präsentiert von der TechFak Sommerfest Bar!",
+  "Irgendjemand hat unsere Sticker geklaut und überall hingeklebt!!!",
+  "Mit dem Code \"MEGADEAL\" gibt es... leider keinen Rabatt."
 ]
 minecraft.innerText = splashes[Math.floor(Math.random() * splashes.length)]
 
 // ACHTUNG!!! JAVASCRIPT BELOW!!!!!
+
+minecraft.addEventListener('click', () => minecraft.innerText = splashes[Math.floor(Math.random() * splashes.length)])
 
 const NUM_QUESTIONS = 5
 
